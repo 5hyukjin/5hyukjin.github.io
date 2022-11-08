@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>오혁진 | 웹 퍼블리셔 포트폴리오</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="오혁진 - 웹 퍼블리셔 포트폴리오">
+        <meta name="keywords" content="오혁진, 웹 퍼블리셔, 포트폴리오, 웹 퍼블리셔 포트폴리오, 웹 디자인">
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+      
+        <style>
+            body{font-family: 'Noto Sans KR', sans-serif;word-break:keep-all;}
+            header{max-width:1920px; position:fixed; z-index:8000; top:30px; left:50%; transform:translate(-50%,0); width:100%; display:flex;}
+            .container{max-width:1600px; margin:auto;}
+            .logo{width:50px;}
+
+            /*visual start*/
+            #visual{background:url(./img/main_bg.png) top center no-repeat; background-size:cover; height:100vh; min-height:640px;}
+            .visual__background{background:rgba(255,255,255,0.4);position:absolute; content:""; width:100%; height:100%; display:block;left:0; top:0;}
+            .visual__container{height:inherit; display:flex; align-items:center;justify-content:center;position:relative;}
+            .visual__container h1{font-size:72px; text-align:center;font-weight:bold;}
+            /* visual end */
+
+            /* aboutt start*/
+            #about{padding:150px 0; box-sizing:border-box;}
+            .about__container{display:flex;justify-content:center;}
+            .about__profile{position:relative; }
+            .about__profile img{display:block;}
+            .about__profile:before{border:3px solid #ffb154;content:""; display:block; position:absolute; z-index:-1;width:100%; height:100%; box-sizing:border-box; transform:translate(30px, 30px);}
+            .about__content{box-sizing:border-box; padding-left:150px;}
+            .about__title{font-size:48px;font-weight:700; line-height:1.4;}
+            .about__text{margin-top:70px;}
+            .about__text-item{margin-top:20px; font-size:18px; line-height:1.4}
+            /* about end */
+            /* skill start */
+            #skill{background:#eee;padding:150px 0;}
+            /* start end */
+
+            #footer{}
+            .footer__container{text-align:center; padding:30px 0;}
+        </style>
+        <script>
+            $(document).ready(function(){
+            
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1><a href="#"><img src="./img/logo.svg" alt="오혁진" class="logo"></a></h1>
+        </header>
+        <section id="visual">
+            <div class="visual__background"></div>
+            <div class="visual__container container">
+                <h1 id="title">THIS IS ME</h1>
+            </div>
+        </section>
+        <section id="about">
+            <div class="about__container container">
+                <div class="about__profile">
+                    <img src="./img/profile.png" alt="혁진">
+                </div>
+                <div class="about__content">
+                    <h2 class="about__title">반갑습니다!<br/>저는 웹 퍼블리셔입니다.</h2>
+                    <div class="about__text">
+                        <p class="about__text-item">
+                            저는 5년차 웹 퍼블리셔 오혁진입니다.<br/>
+                            모르는 것에 두려워하지 않고 끊임없이 도전합니다.
+                        </p>
+                        <p class="about__text-item">
+                            최신 트랜드에 관심이 많아 항상 공부하고 있으며<br/>
+                            소비자 경험을 생각하며 작업을 합니다.
+                        </p>
+                        <p class="about__text-item">
+                            항상 새로운 것을 추구하고 어떤 어려움에도 포기하지 않는 것.<br/>
+                            느리더라도 한 걸음씩 나아가는 것.
+                        </p>
+                        <p class="about__text-item">
+                            그렇게 소비자와 내 자신이 만족하는 결과를 만드는 것.<br/>
+                            제가 바라는 저의 모습입니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="skill">
+            <div class="skill__container container">
+                <h2 class="skill__title">저의 장점을 소개합니다.</h2>
+                <ul class="skill__list">
+                    <li class="skill__list-item">
+                        <strong>Experience</strong>
+                        <p>그누보드, 카페24, 워드프레스를 사용하여 웹페이지를 만든 경험이 있으며, <br/>
+                            앱 기획 및 HTML 기반의 관리자 페이지 개발 경험이 있습니다.
+                        </p>
+                    </li>
+                    <li class="skill__list-item">
+                        <strong>SEO</strong>
+                        <p>네이버 웹마스터, 구글 애널리틱스, 카페24 리포트 코드 삽입 및<br/>
+                            통계를 확인하여 웹사이트 최적화 및 검색최적화를 통해 많은 사용자가 접근할 수 있도록 합니다.
+                        </p>
+                    </li>
+                    <li class="skill__list-item">
+                        <strong>Skill</strong>
+                        <p>REACT, Git, Sass, figma 등 생각을 현실화 하기 위해, <br/>
+                            원만한 협업을 위해 공부하며 이를 적용하려고 노력 중입니다.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <footer id="footer">
+            <div class="footer__container container">
+                &copy; 2022 OHHO All rights reserved
+            </div>
+        </footer>
+    </body>
+</html>
