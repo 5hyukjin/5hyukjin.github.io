@@ -9,9 +9,13 @@
         <meta name="keywords" content="오혁진, 웹 퍼블리셔, 포트폴리오, 웹 퍼블리셔 포트폴리오, 웹 디자인">
         <link rel="stylesheet" href="./css/reset.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-      
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        
+
         <style>
             body{font-family: 'Noto Sans KR', sans-serif;word-break:keep-all;}
             header{max-width:1920px; position:fixed; z-index:8000; top:30px; left:50%; transform:translate(-50%,0); width:100%; display:flex;}
@@ -26,7 +30,7 @@
             /* visual end */
 
             /* aboutt start*/
-            #about{padding:150px 0; box-sizing:border-box;}
+            #about, #skill, #work, #pr{padding:150px 0; box-sizing:border-box;}
             .about__container{display:flex;justify-content:center;}
             .about__profile{position:relative; }
             .about__img {position:relative;}
@@ -36,25 +40,65 @@
             .about__title{font-size:48px;font-weight:700; line-height:1.4;}
             .about__text{margin-top:70px;}
             .about__text-item{margin-top:20px; font-size:18px; line-height:1.6}
-            
             /* about end */
+
             /* skill start */
-            #skill{background:#eee;padding:150px 0;}
+            #skill{background:#efefef;}
             .skill__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center;}
             .skill-list{display:flex; flex-wrap:wrap; margin-top:80px; justify-content:center;}
             .skill-list__item{margin-top:50px; line-height:1.6; width:40%;box-sizing:border-box; padding:0 20px;}
             .skill-list__name{font-size:24px; font-weight:700; }
             .skill-list__dsc{margin-top:15px;}
             /* skill end */
-            /*  */
+
+            /* work start */
+            .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center;}
+            .work-list{display:flex; flex-wrap:wrap; justify-content:center;}
+            .work-list__item{width:40%; box-sizing:border-box; padding:40px 20px;}
+            /* work end*/
+
+            /* pr start */
+            #pr{background:#efefef;}
+            .pr__container{display:flex;justify-content:center;}
+            .pr__title{font-size:42px; font-weight:700; line-height:1.4; width:30%;box-sizing:border-box; padding:30px;}
+            .pr-list{box-sizing:border-box; padding:30px 80px; border-left:1px solid #666;}
+            .pr-list__item{margin-bottom:30px; font-size:18px;}
+            .pr-list__item:last-child{margin-bottom:0;}
+            
+            /* pr end */
             #footer{}
             .footer__container{text-align:center; padding:30px 0;}
         </style>
-        <!-- <script>
-            $(document).ready(function(){
-            
+        <script>
+            $(document).ready(function(){  
+                var swiper = new Swiper(".mySwiper", {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                    pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    },
+                    loop:true,
+                    autoplay:{
+                        delay:2500, disableOninteration:false,
+                    },
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 40,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 50,
+                        },
+                    },
+                });
             });
-        </script> -->
+        </script>
     </head>
     <body>
         <header>
@@ -128,10 +172,24 @@
         </section>
         <section id="work">
             <div class="work_container container">
-                <h2 class="work__title">저는 작업을 소개합니다</h2>
-                <div class="work-list">
-                    
-                </div>
+                <h2 class="work__title">저의 작업을 소개합니다</h2>
+                <ul class="work-list">
+                   <li class="work-list__item"></li>
+                   <li class="work-list__item"></li>
+                   <li class="work-list__item"></li>
+                   <li class="work-list__item"></li>
+                </ul>
+            </div>
+        </section>
+        <section id="pr">
+            <div class="pr__container container">
+                <h2 class="pr__title">이런 때 바로 <br/>저를 찾아주세요</h2>
+                <ul class="pr-list">
+                    <li class="pr-list__item">경험 있는 웹 퍼블리셔가 필요할 때</li>
+                    <li class="pr-list__item">책임감 있고 성실한 사람이 필요할 때</li>
+                    <li class="pr-list__item">색다른 관점이 필요할 때</li>
+                    <li class="pr-list__item">끊임없이 도전하고 성장하는 사람이 필요할 때</li>
+                </ul>
             </div>
         </section>
         <footer id="footer">
