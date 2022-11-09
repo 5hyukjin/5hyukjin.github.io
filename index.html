@@ -29,25 +29,32 @@
             #about{padding:150px 0; box-sizing:border-box;}
             .about__container{display:flex;justify-content:center;}
             .about__profile{position:relative; }
-            .about__profile img{display:block;}
-            .about__profile:before{border:3px solid #ffb154;content:""; display:block; position:absolute; z-index:-1;width:100%; height:100%; box-sizing:border-box; transform:translate(30px, 30px);}
+            .about__img {position:relative;}
+            .about__img img{display:block;}
+            .about__img:before{border:3px solid #ffb154;content:""; display:block; position:absolute; z-index:-1;width:100%; height:100%; box-sizing:border-box; transform:translate(30px, 30px);}
             .about__content{box-sizing:border-box; padding-left:150px;}
             .about__title{font-size:48px;font-weight:700; line-height:1.4;}
             .about__text{margin-top:70px;}
-            .about__text-item{margin-top:20px; font-size:18px; line-height:1.4}
+            .about__text-item{margin-top:20px; font-size:18px; line-height:1.6}
+            
             /* about end */
             /* skill start */
             #skill{background:#eee;padding:150px 0;}
-            /* start end */
-
+            .skill__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center;}
+            .skill-list{display:flex; flex-wrap:wrap; margin-top:80px; justify-content:center;}
+            .skill-list__item{margin-top:50px; line-height:1.6; width:40%;box-sizing:border-box; padding:0 20px;}
+            .skill-list__name{font-size:24px; font-weight:700; }
+            .skill-list__dsc{margin-top:15px;}
+            /* skill end */
+            /*  */
             #footer{}
             .footer__container{text-align:center; padding:30px 0;}
         </style>
-        <script>
+        <!-- <script>
             $(document).ready(function(){
             
             });
-        </script>
+        </script> -->
     </head>
     <body>
         <header>
@@ -62,7 +69,9 @@
         <section id="about">
             <div class="about__container container">
                 <div class="about__profile">
-                    <img src="./img/profile.png" alt="혁진">
+                    <div class="about__img">
+                        <img src="./img/profile.png" alt="혁진">
+                    </div>
                 </div>
                 <div class="about__content">
                     <h2 class="about__title">반갑습니다!<br/>저는 웹 퍼블리셔입니다.</h2>
@@ -89,27 +98,40 @@
         </section>
         <section id="skill">
             <div class="skill__container container">
-                <h2 class="skill__title">저의 장점을 소개합니다.</h2>
-                <ul class="skill__list">
-                    <li class="skill__list-item">
-                        <strong>Experience</strong>
-                        <p>그누보드, 카페24, 워드프레스를 사용하여 웹페이지를 만든 경험이 있으며, <br/>
-                            앱 기획 및 HTML 기반의 관리자 페이지 개발 경험이 있습니다.
+                <h2 class="skill__title">저의 장점을 소개합니다</h2>
+                <ul class="skill-list">
+                    <li class="skill-list__item">
+                        <strong class="skill-list__name">Experience</strong>
+                        <p class="skill-list__dsc">그누보드, 카페24, 워드프레스를 사용하여 웹페이지를 만든 경험이 있으며, 앱 기획 및 HTML 기반의 관리자 페이지 개발 경험이 있습니다.
                         </p>
                     </li>
-                    <li class="skill__list-item">
-                        <strong>SEO</strong>
-                        <p>네이버 웹마스터, 구글 애널리틱스, 카페24 리포트 코드 삽입 및<br/>
-                            통계를 확인하여 웹사이트 최적화 및 검색최적화를 통해 많은 사용자가 접근할 수 있도록 합니다.
+                    <li class="skill-list__item">
+                        <strong class="skill-list__name">SEO</strong>
+                        <p class="skill-list__dsc">네이버 웹마스터, 구글 애널리틱스, 카페24 리포트 코드 삽입 및 통계를 확인하여 웹사이트 최적화 및 검색최적화를 통해 많은 사용자가 접근할 수 있도록 합니다.
                         </p>
                     </li>
-                    <li class="skill__list-item">
-                        <strong>Skill</strong>
-                        <p>REACT, Git, Sass, figma 등 생각을 현실화 하기 위해, <br/>
+                    <li class="skill-list__item">
+                        <strong class="skill-list__name">Skills</strong>
+                        <p class="skill-list__dsc">REACT, Git, Sass, figma 등 생각을 현실화 하기 위해, <br/>
                             원만한 협업을 위해 공부하며 이를 적용하려고 노력 중입니다.
                         </p>
                     </li>
+                    <li class="skill-list__item">
+                        <strong class="skill-list__name">Communication</strong>
+                        <p class="skill-list__dsc">
+                            디자인과 코딩에 대한 이해를 기반으로 하여<br/>
+                            협업 시 원활한 진행과 함께 더 좋은 결과물을 만듭니다.
+                        </p>
+                    </li>
                 </ul>
+            </div>
+        </section>
+        <section id="work">
+            <div class="work_container container">
+                <h2 class="work__title">저는 작업을 소개합니다</h2>
+                <div class="work-list">
+                    
+                </div>
             </div>
         </section>
         <footer id="footer">
