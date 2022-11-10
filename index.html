@@ -18,7 +18,7 @@
 
         <style>
             body{font-family: 'Noto Sans KR', sans-serif;word-break:keep-all;}
-            header{max-width:1920px; position:fixed; z-index:8000; top:30px; left:50%; transform:translate(-50%,0); width:100%; display:flex;}
+            header{max-width:1920px; position:fixed; z-index:8000; top:30px; left:50%; transform:translate(-50%,0); width:100%; display:flex;box-sizing:border-box; padding:0 20px;;}
             .container{max-width:1600px; margin:auto;}
             .logo{width:50px;}
 
@@ -52,15 +52,26 @@
             /* skill end */
 
             /* work start */
-            .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center;}
+            .work_container{padding:0 20px;}
+            .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center; margin-bottom:50px;}
             .work-list{display:flex; flex-wrap:wrap; justify-content:center;}
             .work-list__item{width:40%; box-sizing:border-box; padding:40px 20px;}
+            .mySwiper {padding-bottom:50px;}
+            .mySwiper .swiper-slide{transition:all linear 0.3s; background:#f6f6f6;}
+            .mySwiper .swiper-slide:hover{box-shadow:5px 5px 5px rgba(0,0,0,0.1);}
+            .mySwiper .swiper-slide img{max-width:100%; margin:auto;display:block;box-sizing:border-box; border:1px solid #eee;}
+            .mySwiper .swiper-slide a{text-align:center; text-decoration:inherit; color:inherit;}
+            .mySwiper .swiper-slide p{padding:20px;line-height:1.6;}
+            .work__name{font-size:20px; font-weight:700;}
+            .mySwiper .swiper-pagination{bottom:10px;}
+            .mySwiper .swiper-pagination-bullet-active{background:#333;}
             /* work end*/
 
             /* pr start */
             #pr{background:#efefef;}
             .pr__container{display:flex;justify-content:center;}
             .pr__title{font-size:42px; font-weight:700; line-height:1.4; width:30%;box-sizing:border-box; padding:30px;}
+            .pr__btn{color:inherit;font-size:24px;font-weight:400; display:inline-block; padding:10px 20px; border:1px solid #ccc;}
             .pr-list{box-sizing:border-box; padding:30px 80px; border-left:1px solid #666;}
             .pr-list__item{margin-bottom:30px; font-size:18px;}
             .pr-list__item:last-child{margin-bottom:0;}
@@ -182,7 +193,7 @@
                             <a href="https://varihope.com/" target="_blank">
                                 <img src="./img/varihope.png" alt="베리홉">
                                 <p>
-                                    <strong>베리홉</strong><br/>
+                                    <strong class="work__name">베리홉</strong><br/>
                                     카페24 / Pc&Mobilc
                                 </p>
                             </a>
@@ -191,7 +202,7 @@
                             <a href="https://sdf-incu.or.kr/" target="_blank">
                                 <img src="./img/sdf_incu.png" alt="서울디자인창업센터">
                                 <p>
-                                    <strong>서울디자인창업센터</strong><br/>
+                                    <strong class="work__name">서울디자인창업센터</strong><br/>
                                     디자인 & 코딩 / 반응형
                                 </p>
                             </a>
@@ -200,7 +211,7 @@
                             <a href="http://hankyullightec.co.kr/" target="_blank">
                                 <img src="./img/hankyulightec.png" alt="한결라이텍">
                                 <p>
-                                    <strong>한결라이텍</strong><br/>
+                                    <strong class="work__name">한결라이텍</strong><br/>
                                     디자인 & 코딩 / 반응형
                                 </p>
                             </a>
@@ -209,13 +220,29 @@
                             <a href="https://i-love.or.kr/zine/" target="_blank">
                                 <img src="./img/ilove.png" alt="웹진아이사랑">
                                 <p>
-                                    <strong>웹진아이사랑</strong><br/>
+                                    <strong class="work__name">웹진아이사랑</strong><br/>
                                     디자인 및 코딩 / 반응형 / 9회 발간
                                 </p>
                             </a>
                         </div>
-                        <div class="swiper-slide">Slide 2</div>
-                        <div class="swiper-slide">Slide 3</div>
+                        <div class="swiper-slide">
+                            <a href="http://www.injungtech.com/" target="_blank">
+                                <img src="./img/injungtech.png" alt="인정테크">
+                                <p>
+                                    <strong class="work__name">인정테크</strong><br/>
+                                    디자인 및 코딩 / 반응형
+                                </p>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="http://www.bionicsro.co.kr/" target="_blank">
+                                <img src="./img/bionicsro.png" alt="인정테크">
+                                <p>
+                                    <strong class="work__name">바이오닉스</strong><br/>
+                                    디자인 및 html 코딩 / 반응형
+                                </p>
+                            </a>
+                        </div>
                     </div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination"></div>
@@ -224,7 +251,10 @@
         </section>
         <section id="pr">
             <div class="pr__container container">
-                <h2 class="pr__title">이런 때 바로 <br/>저를 찾아주세요</h2>
+                <div class="pr__title">
+                    <h2 >이런 때 바로 <br/>저를 찾아주세요</h2>
+                    <a href="#" download class="pr__btn">__이력서</a>
+                </div>
                 <ul class="pr-list">
                     <li class="pr-list__item">경험 있는 웹 퍼블리셔가 필요할 때</li>
                     <li class="pr-list__item">책임감 있고 성실한 사람이 필요할 때</li>
