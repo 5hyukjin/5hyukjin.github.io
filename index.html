@@ -98,8 +98,8 @@
             .pr__title{font-size:42px; font-weight:700; line-height:1.4; width:30%; min-width:365px;box-sizing:border-box; padding:30px;}
             .pr__btn{color:inherit;font-size:18px;font-weight:400; display:inline-block; padding:10px 20px;background:#525252; color:#fff; line-height:1; text-decoration:none;margin-top:20px;}
             .pr-list{box-sizing:border-box; padding:30px 80px; border-left:1px solid #666;}
-            .pr-list__item{margin-bottom:30px; font-size:18px;}
-            .pr-list__item .fas{font-size:1px; position:relative; transform:translate(0,-0.5px;); margin-right:10px; color:#525252;}
+            .pr-list__item{margin-bottom:30px; font-size:18px;position:relative;}
+            .pr-list__item:before{content:""; display:block; width:6px; height:6px; background:#666; border-radius:3px; left:0; top:0; transform:translatE(-16px, 16px);}
             .pr-list__item:last-child{margin-bottom:0;}
             
             /* pr end */
@@ -155,7 +155,7 @@
                 .work__more_btn{font-size:14px; padding:5px 7px; }
 
                 .pr__title{display:block;}
-                .pr__btn{font-size:14px;}
+                .pr__btn{font-size:12px; padding:7px 10px;}
                 .pr__title, .pr-list{width:100%;padding:30px 20px;}
                 
                 .footer__container{padding:15px 0; font-size:12px;}
@@ -362,10 +362,10 @@
                     <a href="./img/hyukjin_resume.pdf" download class="pr__btn">__이력서</a>
                 </div>
                 <ul class="pr-list">
-                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>경험 있는 웹 퍼블리셔가 필요할 때</li>
-                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>책임감 있고 성실한 사람이 필요할 때</li>
-                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>색다른 관점이 필요할 때</li>
-                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>끊임없이 도전하고 성장하는 사람이 필요할 때</li>
+                    <li class="pr-list__item">경험 있는 웹 퍼블리셔가 필요할 때</li>
+                    <li class="pr-list__item">책임감 있고 성실한 사람이 필요할 때</li>
+                    <li class="pr-list__item">색다른 관점이 필요할 때</li>
+                    <li class="pr-list__item">끊임없이 도전하고 성장하는 사람이 필요할 때</li>
                 </ul>
             </div>
         </section>
