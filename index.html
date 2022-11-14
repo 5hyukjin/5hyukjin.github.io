@@ -44,7 +44,7 @@
 
             /*visual start*/
             #visual{background:url(./img/main_bg.png) top center no-repeat; background-size:cover; height:100vh; min-height:640px;}
-            .visual__background{background:rgba(255,255,255,0.4);position:absolute; content:""; width:100%; height:100%; display:block;left:0; top:0;}
+            .visual__background{background:rgba(255,255,255,0.4);position:absolute; content:""; width:100%; height:100vh; display:block;left:0; top:0;}
             .visual__container{height:inherit; display:flex; align-items:center;justify-content:center;position:relative;flex-wrap:wrap; align-content:center;}
             .visual__title{font-size:48px; text-align:center;font-weight:bold; margin-bottom:30px;display:block;width:100%;display:block;}
             .visual__subText{font-size:14px;text-align:center;}
@@ -78,7 +78,7 @@
             .work_container{padding:0 20px;}
             .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center; margin-bottom:30px;}
             .work__btn_wrap{text-align:center;margin-bottom:50px;}
-            .work__more_btn{display:inline-block;; margin:auto; padding:5px 15px 10px; text-decoration:none; font-size:18px; border-bottom:2px solid #525252; letter-spacing:1.5px;}
+            .work__more_btn{display:inline-block;; margin:auto; padding:5px 15px 10px; text-decoration:none; font-size:18px; border-bottom:1px solid #525252; letter-spacing:1.5px; color:inherit;}
             .work-list{display:flex; flex-wrap:wrap; justify-content:center;}
             .work-list__item{width:40%; box-sizing:border-box; padding:40px 20px;}
             .mySwiper {padding-bottom:50px;}
@@ -99,6 +99,7 @@
             .pr__btn{color:inherit;font-size:18px;font-weight:400; display:inline-block; padding:10px 20px;background:#525252; color:#fff; line-height:1; text-decoration:none;margin-top:20px;}
             .pr-list{box-sizing:border-box; padding:30px 80px; border-left:1px solid #666;}
             .pr-list__item{margin-bottom:30px; font-size:18px;}
+            .pr-list__item .fas{font-size:1px; position:relative; transform:translate(0,-0.5px;); margin-right:10px; color:#525252;}
             .pr-list__item:last-child{margin-bottom:0;}
             
             /* pr end */
@@ -124,13 +125,14 @@
                 .skill-list{margin-top:30px;}
                 
                 .work__more_btn{font-size:16px;}
+                .work__name{font-size:18px;}
 
                 .pr__container{flex-wrap:wrap;}
                 .pr__title{font-size:32px; width:80%; display:flex; justify-content:space-between; }
                 .pr-list{border:0; border-top:1px solid #666;width:80%;padding:50px 30px;}
                 .pr__btn{align-self:flex-end;font-size:16px}
                 
-               
+                
             }
             @media (max-width:768px){                
                 #about, #skill, #work, #pr{padding:70px 20px;}
@@ -138,16 +140,25 @@
             }
             @media (max-width:680px){                
                 body{font-size:14px;}
+                
                 .visual__title{font-size:30px;}
 
+                .about__content{padding:0;}
+                .about__text{margin-top:40px;}
                 .about__text-item, .pr-list__item{font-size:16px;}
-                .section__title{font-size:30px;}
-                .skill-list__item{width:100%;}
+                .section__title, .pr__title{font-size:24px;}
+                .skill-list__item{width:100%;margin-top:30px;}
+                
                 .skill-list__name{font-size:18px;}
                 .skill-list__dsc{margin-top:8px;}
 
+                .work__more_btn{font-size:14px; padding:5px 7px; }
+
+                .pr__title{display:block;}
+                .pr__btn{font-size:14px;}
                 .pr__title, .pr-list{width:100%;padding:30px 20px;}
                 
+                .footer__container{padding:15px 0; font-size:12px;}
             }   
             @media (max-width:480px){                
                 
@@ -202,8 +213,9 @@
                 <div class="about__profile">
                     <div class="about__img">
                         <picture>
-                            <source media="(max-width: 1600px)" srcset="./img/profile_300w.png">
-                            <img src="./img/profile.png" alt="혁진">
+                            <source media="(min-width: 1600px)" srcset="./img/profile.png">
+                            <source media="(max-width:640px)" srcset="./img/profile_240w.png">
+                            <img src="./img/profile_300w.png" alt="혁진">
                         </picture>
                     </div>
                 </div>
@@ -350,10 +362,10 @@
                     <a href="./img/hyukjin_resume.pdf" download class="pr__btn">__이력서</a>
                 </div>
                 <ul class="pr-list">
-                    <li class="pr-list__item">경험 있는 웹 퍼블리셔가 필요할 때</li>
-                    <li class="pr-list__item">책임감 있고 성실한 사람이 필요할 때</li>
-                    <li class="pr-list__item">색다른 관점이 필요할 때</li>
-                    <li class="pr-list__item">끊임없이 도전하고 성장하는 사람이 필요할 때</li>
+                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>경험 있는 웹 퍼블리셔가 필요할 때</li>
+                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>책임감 있고 성실한 사람이 필요할 때</li>
+                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>색다른 관점이 필요할 때</li>
+                    <li class="pr-list__item"><i class="fas fa-solid fa-circle"></i>끊임없이 도전하고 성장하는 사람이 필요할 때</li>
                 </ul>
             </div>
         </section>
