@@ -45,8 +45,9 @@
             /*visual start*/
             #visual{background:url(./img/main_bg.png) top center no-repeat; background-size:cover; height:100vh; min-height:640px;}
             .visual__background{background:rgba(255,255,255,0.4);position:absolute; content:""; width:100%; height:100%; display:block;left:0; top:0;}
-            .visual__container{height:inherit; display:flex; align-items:center;justify-content:center;position:relative;}
-            .visual__container h1{font-size:72px; text-align:center;font-weight:bold;}
+            .visual__container{height:inherit; display:flex; align-items:center;justify-content:center;position:relative;flex-wrap:wrap; align-content:center;}
+            .visual__title{font-size:48px; text-align:center;font-weight:bold; margin-bottom:30px;display:block;width:100%;display:block;}
+            .visual__subText{font-size:14px;text-align:center;}
             /* visual end */
 
             /* aboutt start*/
@@ -66,14 +67,18 @@
             #skill{background:#efefef;}
             .skill__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center;}
             .skill-list{display:flex; flex-wrap:wrap; margin-top:80px; justify-content:center;}
-            .skill-list__item{margin-top:50px; line-height:1.6; width:40%;box-sizing:border-box; padding:0 20px;}
-            .skill-list__name{font-size:24px; font-weight:700; }
-            .skill-list__dsc{margin-top:15px;}
+            .skill-list__item{margin-top:50px; width:40%;box-sizing:border-box; padding:0 20px 0 40px;line-height:1.6;position:relative;}
+            .skill-list__tit{transform:translatE(-25px,0);}
+            .skill-list__tit .fas{padding-right:5px;}
+            .skill-list__name{font-size:24px; font-weight:700;  }
+            .skill-list__dsc{margin-top:15px; }
             /* skill end */
 
             /* work start */
             .work_container{padding:0 20px;}
-            .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center; margin-bottom:50px;}
+            .work__title{font-size:48px; font-weight:700; line-height:1.4; text-align:center; margin-bottom:30px;}
+            .work__btn_wrap{text-align:center;margin-bottom:50px;}
+            .work__more_btn{display:inline-block;; margin:auto; padding:5px 15px 10px; text-decoration:none; font-size:18px; border-bottom:2px solid #525252; letter-spacing:1.5px;}
             .work-list{display:flex; flex-wrap:wrap; justify-content:center;}
             .work-list__item{width:40%; box-sizing:border-box; padding:40px 20px;}
             .mySwiper {padding-bottom:50px;}
@@ -90,7 +95,7 @@
             /* pr start */
             #pr{background:#efefef;}
             .pr__container{display:flex;justify-content:center;}
-            .pr__title{font-size:42px; font-weight:700; line-height:1.4; width:30%;box-sizing:border-box; padding:30px;}
+            .pr__title{font-size:42px; font-weight:700; line-height:1.4; width:30%; min-width:365px;box-sizing:border-box; padding:30px;}
             .pr__btn{color:inherit;font-size:18px;font-weight:400; display:inline-block; padding:10px 20px;background:#525252; color:#fff; line-height:1; text-decoration:none;margin-top:20px;}
             .pr-list{box-sizing:border-box; padding:30px 80px; border-left:1px solid #666;}
             .pr-list__item{margin-bottom:30px; font-size:18px;}
@@ -99,11 +104,59 @@
             /* pr end */
             #footer{}
             .footer__container{text-align:center; padding:30px 0;}
+
+
+            @media (max-width:1600px){
+                .about__content{padding-left:100px;}
+            }
+            @media (max-width:1024px){
+                .about__container{flex-wrap:wrap;}
+                .skill-list__item{width:46%;}
+                .skill-list__dsc br{display:none;}
+            }
+            @media (max-width:960px){
+                .visual__title{font-size:36px;}
+
+                #about, #skill, #work, #pr{padding:100px 20px;}
+                .section__title{font-size:36px;}
+                
+                .about__content{padding:0 80px; margin-top:80px;}
+                .skill-list{margin-top:30px;}
+                
+                .work__more_btn{font-size:16px;}
+
+                .pr__container{flex-wrap:wrap;}
+                .pr__title{font-size:32px; width:80%; display:flex; justify-content:space-between; }
+                .pr-list{border:0; border-top:1px solid #666;width:80%;padding:50px 30px;}
+                .pr__btn{align-self:flex-end;font-size:16px}
+                
+               
+            }
+            @media (max-width:768px){                
+                #about, #skill, #work, #pr{padding:70px 20px;}
+                .about__content{padding:0 40px;}
+            }
+            @media (max-width:680px){                
+                body{font-size:14px;}
+                .visual__title{font-size:30px;}
+
+                .about__text-item, .pr-list__item{font-size:16px;}
+                .section__title{font-size:30px;}
+                .skill-list__item{width:100%;}
+                .skill-list__name{font-size:18px;}
+                .skill-list__dsc{margin-top:8px;}
+
+                .pr__title, .pr-list{width:100%;padding:30px 20px;}
+                
+            }   
+            @media (max-width:480px){                
+                
+            }   
         </style>
         <script>
             $(document).ready(function(){  
                 var swiper = new Swiper(".mySwiper", {
-                    slidesPerView: 3,
+                    slidesPerView: 1,
                     spaceBetween: 10,
                     pagination: {
                     el: ".swiper-pagination",
@@ -138,18 +191,24 @@
         <section id="visual">
             <div class="visual__background"></div>
             <div class="visual__container container">
-                <h1 id="title">THIS IS ME</h1>
+                <h1 class="visual__title">
+                    매일 새롭게, 언제나 즐겁게<br/>
+                </h1>
+                <p class="visual__subText">Web Publisher</p>
             </div>
         </section>
         <section id="about">
             <div class="about__container container">
                 <div class="about__profile">
                     <div class="about__img">
-                        <img src="./img/profile.png" alt="혁진">
+                        <picture>
+                            <source media="(max-width: 1600px)" srcset="./img/profile_300w.png">
+                            <img src="./img/profile.png" alt="혁진">
+                        </picture>
                     </div>
                 </div>
                 <div class="about__content">
-                    <h2 class="about__title">반갑습니다!<br/>저는 웹 퍼블리셔입니다.</h2>
+                    <h2 class="about__title section__title">반갑습니다!<br/>저는 웹 퍼블리셔입니다.</h2>
                     <div class="about__text">
                         <p class="about__text-item">
                             저는 5년차 웹 퍼블리셔 오혁진입니다.<br/>
@@ -164,7 +223,7 @@
                             느리더라도 한 걸음씩 나아가는 것.
                         </p>
                         <p class="about__text-item">
-                            그렇게 소비자와 내 자신이 만족하는 결과를 만드는 것.<br/>
+                            그렇게 사용자와 내 자신이 만족하는 결과를 만드는 것.<br/>
                             제가 바라는 저의 모습입니다.
                         </p>
                     </div>
@@ -173,30 +232,38 @@
         </section>
         <section id="skill">
             <div class="skill__container container">
-                <h2 class="skill__title">저의 장점을 소개합니다</h2>
+                <h2 class="skill__title section__title">저의 장점을 소개합니다</h2>
                 <ul class="skill-list">
                     <li class="skill-list__item">
-                        <i class="fa-solid fa-check"></i>
-                        <strong class="skill-list__name">Experience</strong>
+                        <div class="skill-list__tit">
+                            <i class="fas fa-solid fa-check"></i>
+                            <strong class="skill-list__name">Experience</strong>
+                        </div>
                         <p class="skill-list__dsc">그누보드, 카페24, 워드프레스를 사용하여 웹페이지를 만든 경험이 있으며, 앱 기획 및 HTML 기반의 관리자 페이지 개발 경험이 있습니다.
                         </p>
                     </li>
                     <li class="skill-list__item">
-                        <i class="fa-solid fa-check"></i>
-                        <strong class="skill-list__name">SEO</strong>
+                        <div class="skill-list__tit">
+                            <i class="fas fa-solid fa-check"></i>
+                            <strong class="skill-list__name">SEO</strong>
+                        </div>
                         <p class="skill-list__dsc">네이버 웹마스터, 구글 애널리틱스, 카페24 리포트 코드 삽입 및 통계를 확인하여 웹사이트 최적화 및 검색최적화를 통해 많은 사용자가 접근할 수 있도록 합니다.
                         </p>
                     </li>
                     <li class="skill-list__item">
-                        <i class="fa-solid fa-check"></i>
-                        <strong class="skill-list__name">Skills</strong>
+                        <div class="skill-list__tit">
+                            <i class="fas fa-solid fa-check"></i>
+                            <strong class="skill-list__name">Skills</strong>
+                        </div>
                         <p class="skill-list__dsc">REACT, Git, Sass, figma 등 생각을 현실화 하기 위해, <br/>
                             원만한 협업을 위해 공부하며 이를 적용하려고 노력 중입니다.
                         </p>
                     </li>
                     <li class="skill-list__item">
-                        <i class="fa-solid fa-check"></i>
-                        <strong class="skill-list__name">Communication</strong>
+                        <div class="skill-list__tit">
+                            <i class="fas fa-solid fa-check"></i>
+                            <strong class="skill-list__name">Communication</strong>
+                        </div>
                         <p class="skill-list__dsc">
                             디자인과 코딩에 대한 이해를 기반으로 하여<br/>
                             협업 시 원활한 진행과 함께 더 좋은 결과물을 만듭니다.
@@ -207,7 +274,10 @@
         </section>
         <section id="work">
             <div class="work_container container">
-                <h2 class="work__title">저의 작업을 소개합니다</h2>
+                <h2 class="work__title section__title">저의 작업을 소개합니다</h2>
+                <div class="work__btn_wrap">
+                    <a href="#" target="_blank" class="work__more_btn">더보기</a>
+                </div>
                  <!-- Slider main container -->
                  <div class="swiper mySwiper">
                     <!-- Additional required wrapper -->
