@@ -64,6 +64,12 @@
 </head>
 <body>
 
+<h2>🎯 목표 캐릭터</h2>
+<div id="targetCharacter"></div>
+
+<h3>현재 캐릭터 유사도</h3>
+<div id="similarity">0%</div>
+
 <h2>내 캐릭터 (최대 2명 선택)</h2>
 <ul id="characterList"></ul>
 
@@ -229,6 +235,8 @@ function renderParents() {
 function render() {
   renderList();
   renderParents();
+  renderTarget();
+  renderSimilarity();
 }
 
 /**********************
@@ -263,15 +271,65 @@ document.getElementById("breedBtn").onclick = () => {
   selectedIndexes = [characters.length - 1];
   partner = null;
 
-  render();
+  const similarity = calculateSimilarity(child, targetCharacter);
+  if (similarity >= 90) {
+    alert(`🎉 목표 캐릭터 달성! (${similarity}%)`);
+  }
+
+  render();  
 };
 
+function calculateSimilarity(a, b) {
+  let total = 0;
+  let score = 0;
+
+  TRAITS.forEach(key => {
+    let max;
+
+    switch (key) {
+      case "color": max = 360; break;
+      case "roundness": max = 100; break;
+      case "eyeSize": max = 20; break;
+      case "mouthWidth": max = 50; break;
+      case "mouthCurve": max = 40; break;
+    }
+
+    const diff = Math.abs(a.traits[key] - b.traits[key]);
+    score += (1 - diff / max);
+    total++;
+  });
+
+  return Math.round((score / total) * 100);
+}
+
+let targetCharacter = generateRandomCharacter();
+
+function renderTarget() {
+  const el = document.getElementById("targetCharacter");
+  el.innerHTML = "";
+  el.appendChild(createCharacterElement(targetCharacter));
+}
+
+function renderSimilarity() {
+  const el = document.getElementById("similarity");
+
+  if (selectedIndexes.length === 0) {
+    el.textContent = "-";
+    return;
+  }
+
+  const current = characters[selectedIndexes[0]];
+  const value = calculateSimilarity(current, targetCharacter);
+  el.textContent = value + "%";
+
+}
 /**********************
  * 초기화
  **********************/
 characters.push(generateRandomCharacter());
 selectedIndexes = [0]; // ⭐ 처음 캐릭터 자동 선택
 render();
+
 </script>
 
 </body>
