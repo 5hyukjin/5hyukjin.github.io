@@ -37,22 +37,22 @@
       margin-bottom: 6px;
     }
 
-    .eye {
+    .eyes {
       position: absolute;
-      top: 28px;
-      background: #000;
-      border-radius: 50%;
+      top: 26px;
+      width: 100%;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1;
     }
-
-    .eye.left { left: 24px; }
-    .eye.right { right: 24px; }
-
+    
     .mouth {
       position: absolute;
-      bottom: 22px;
-      left: 50%;
-      border-bottom: 3px solid #000;
-      transform-origin: center;
+      bottom: 18px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1;
     }
 
     .panel {
@@ -92,7 +92,18 @@
 /**********************
  * 상태
  **********************/
-const TRAITS = ["color", "roundness", "eyeSize", "mouthWidth", "mouthCurve"];
+ const TRAITS = {
+  numeric: ["color", "roundness"],
+  visual: ["bodyShape", "eye", "mouth"]
+};
+const BODY_SHAPES = [
+  "circle",
+  "oval",
+  "rounded-square",
+  "capsule"
+];
+const EYES = ["● ●", "― ―", "■ ■", "ㅠ ㅠ", "◉ ◉"];
+const MOUTHS = ["—", ")", "(", "〰", "●"];
 
 let characters = [];
 let selectedIndexes = [];
@@ -101,22 +112,47 @@ let partner = null;
 /**********************
  * 유틸
  **********************/
-function randomTrait(key) {
+ function randomTrait(key) {
   switch (key) {
-    case "color": return Math.floor(Math.random() * 360);
-    case "roundness": return Math.floor(Math.random() * 100);
-    case "eyeSize": return Math.floor(Math.random() * 14) + 6;
-    case "mouthWidth": return Math.floor(Math.random() * 30) + 20;
-    case "mouthCurve": return Math.floor(Math.random() * 41) - 20;
+    case "color":
+      return Math.floor(Math.random() * 360);
+
+    case "roundness":
+      return Math.floor(Math.random() * 100);
+
+    case "eye":
+      return randomFrom(EYES);
+
+    case "mouth":
+      return randomFrom(MOUTHS);
+
+    case "bodyShape":
+      return randomFrom(BODY_SHAPES);
   }
 }
 
-function generateTraits(fn) {
-  return TRAITS.reduce((acc, key) => {
-    acc[key] = fn(key);
-    return acc;
-  }, {});
+function applyBodyShape(el, shape) {
+  switch (shape) {
+    case "circle":
+      el.style.borderRadius = "50%";
+      break;
+    case "oval":
+      el.style.borderRadius = "50%";
+      el.style.transform = "scaleY(1.2)";
+      break;
+    case "rounded-square":
+      el.style.borderRadius = "20%";
+      break;
+    case "capsule":
+      el.style.borderRadius = "999px";
+      break;
+  }
 }
+
+function randomFrom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 
 /**********************
  * 캐릭터 생성
@@ -126,9 +162,17 @@ function createCharacter(traits) {
 }
 
 function generateRandomCharacter() {
-  return createCharacter(
-    generateTraits((key) => randomTrait(key))
-  );
+  const traits = {};
+
+  TRAITS.numeric.forEach(key => {
+    traits[key] = randomTrait(key);
+  });
+
+  TRAITS.visual.forEach(key => {
+    traits[key] = randomTrait(key);
+  });
+
+  return { traits };
 }
 
 /**********************
@@ -141,14 +185,19 @@ function inheritTrait(a, b, key) {
   return randomTrait(key);
 }
 
-function createChild(a, b) {
-  return createCharacter(
-    generateTraits((key) =>
-      inheritTrait(a.traits[key], b.traits[key], key)
-    )
-  );
-}
+function createChild(parentA, parentB) {
+  const traits = {};
 
+  [...TRAITS.numeric, ...TRAITS.visual].forEach(key => {
+    traits[key] = inheritTrait(
+      parentA.traits[key],
+      parentB.traits[key],
+      key
+    );
+  });
+
+  return { traits };
+}
 /**********************
  * 선택 로직
  **********************/
@@ -165,31 +214,26 @@ function toggleSelect(index) {
 /**********************
  * UI 생성
  **********************/
-function createCharacterElement(character) {
-  const t = character.traits;
+ function renderCharacter(character) {
   const wrap = document.createElement("div");
   wrap.className = "character";
 
   const face = document.createElement("div");
   face.className = "face";
-  face.style.background = `hsl(${t.color},70%,70%)`;
-  face.style.borderRadius = `${t.roundness}%`;
+  face.style.background = `hsl(${character.traits.color}, 70%, 70%)`;
+  face.style.borderRadius = `${character.traits.roundness}%`;
 
-  const le = document.createElement("div");
-  le.className = "eye left";
-  le.style.width = le.style.height = `${t.eyeSize}px`;
-
-  const re = document.createElement("div");
-  re.className = "eye right";
-  re.style.width = re.style.height = `${t.eyeSize}px`;
+  const eyes = document.createElement("div");
+  eyes.className = "eyes";
+  eyes.textContent = character.traits.eye;
 
   const mouth = document.createElement("div");
   mouth.className = "mouth";
-  mouth.style.width = `${t.mouthWidth}px`;
-  mouth.style.transform =
-    `translateX(-50%) rotate(${t.mouthCurve}deg)`;
+  mouth.textContent = character.traits.mouth;
 
-  face.append(le, re, mouth);
+  applyBodyShape(face, character.traits.bodyShape);
+
+  face.append(eyes, mouth);
   wrap.appendChild(face);
   return wrap;
 }
@@ -201,17 +245,9 @@ function renderList() {
   const ul = document.getElementById("characterList");
   ul.innerHTML = "";
 
-  characters.forEach((c, i) => {
-    const li = document.createElement("li");
-    const el = createCharacterElement(c);
-
-    if (selectedIndexes.includes(i)) {
-      el.classList.add("selected");
-    }
-
-    li.onclick = () => toggleSelect(i);
-    li.appendChild(el);
-    ul.appendChild(li);
+  characters.forEach(char => {
+    const el = renderCharacter(char);
+    ul.appendChild(el);
   });
 }
 
@@ -224,12 +260,21 @@ function renderParents() {
   pa.innerHTML = "";
   pb.innerHTML = "";
 
-  if (a !== undefined) pa.appendChild(createCharacterElement(characters[a]));
-  else pa.textContent = "없음";
+  // 부모 A
+  if (a !== undefined) {
+    pa.appendChild(renderCharacter(characters[a]));
+  } else {
+    pa.textContent = "없음";
+  }
 
-  if (b !== undefined) pb.appendChild(createCharacterElement(characters[b]));
-  else if (partner) pb.appendChild(createCharacterElement(partner));
-  else pb.textContent = "없음";
+  // 부모 B
+  if (b !== undefined) {
+    pb.appendChild(renderCharacter(characters[b]));
+  } else if (partner) {
+    pb.appendChild(renderCharacter(partner));
+  } else {
+    pb.textContent = "없음";
+  }
 }
 
 function render() {
@@ -280,22 +325,20 @@ document.getElementById("breedBtn").onclick = () => {
 };
 
 function calculateSimilarity(a, b) {
-  let total = 0;
   let score = 0;
+  let total = 0;
 
-  TRAITS.forEach(key => {
-    let max;
-
-    switch (key) {
-      case "color": max = 360; break;
-      case "roundness": max = 100; break;
-      case "eyeSize": max = 20; break;
-      case "mouthWidth": max = 50; break;
-      case "mouthCurve": max = 40; break;
-    }
-
+  // numeric traits
+  TRAITS.numeric.forEach(key => {
+    const max = key === "color" ? 360 : 100;
     const diff = Math.abs(a.traits[key] - b.traits[key]);
-    score += (1 - diff / max);
+    score += 1 - diff / max;
+    total++;
+  });
+
+  // visual traits
+  TRAITS.visual.forEach(key => {
+    score += a.traits[key] === b.traits[key] ? 1 : 0;
     total++;
   });
 
@@ -307,7 +350,7 @@ let targetCharacter = generateRandomCharacter();
 function renderTarget() {
   const el = document.getElementById("targetCharacter");
   el.innerHTML = "";
-  el.appendChild(createCharacterElement(targetCharacter));
+  el.appendChild(renderCharacter(targetCharacter));
 }
 
 function renderSimilarity() {
