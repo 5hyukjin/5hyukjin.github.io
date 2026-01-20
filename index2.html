@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>유전자 캐릭터 시뮬레이션</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    ul {
+      display: flex;
+      gap: 16px;
+      list-style: none;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    li {
+      cursor: pointer;
+    }
+
+    .selected {
+      outline: 3px solid blue;
+    }
+
+    .character {
+      width: 90px;
+      text-align: center;
+    }
+
+    .face {
+      width: 90px;
+      height: 90px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .eye {
+      position: absolute;
+      top: 28px;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    .eye.left { left: 24px; }
+    .eye.right { right: 24px; }
+
+    .mouth {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      border-bottom: 3px solid #000;
+      transform-origin: center;
+    }
+
+    .panel {
+      display: flex;
+      gap: 40px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<h2>내 캐릭터 (최대 2명 선택)</h2>
+<ul id="characterList"></ul>
+
+<h2>현재 교배 상태</h2>
+<div class="panel">
+  <div>
+    <h3>부모 A</h3>
+    <div id="parentA">없음</div>
+  </div>
+  <div>
+    <h3>부모 B</h3>
+    <div id="parentB">없음</div>
+  </div>
+</div>
+
+<button id="meetBtn">새로운 캐릭터 만나기</button>
+<button id="breedBtn">교배하기</button>
+
+<script>
+/**********************
+ * 상태
+ **********************/
+const TRAITS = ["color", "roundness", "eyeSize", "mouthWidth", "mouthCurve"];
+
+let characters = [];
+let selectedIndexes = [];
+let partner = null;
+
+/**********************
+ * 유틸
+ **********************/
+function randomTrait(key) {
+  switch (key) {
+    case "color": return Math.floor(Math.random() * 360);
+    case "roundness": return Math.floor(Math.random() * 100);
+    case "eyeSize": return Math.floor(Math.random() * 14) + 6;
+    case "mouthWidth": return Math.floor(Math.random() * 30) + 20;
+    case "mouthCurve": return Math.floor(Math.random() * 41) - 20;
+  }
+}
+
+function generateTraits(fn) {
+  return TRAITS.reduce((acc, key) => {
+    acc[key] = fn(key);
+    return acc;
+  }, {});
+}
+
+/**********************
+ * 캐릭터 생성
+ **********************/
+function createCharacter(traits) {
+  return { traits };
+}
+
+function generateRandomCharacter() {
+  return createCharacter(
+    generateTraits((key) => randomTrait(key))
+  );
+}
+
+/**********************
+ * 상속
+ **********************/
+function inheritTrait(a, b, key) {
+  const r = Math.random();
+  if (r < 0.45) return a;
+  if (r < 0.9) return b;
+  return randomTrait(key);
+}
+
+function createChild(a, b) {
+  return createCharacter(
+    generateTraits((key) =>
+      inheritTrait(a.traits[key], b.traits[key], key)
+    )
+  );
+}
+
+/**********************
+ * 선택 로직
+ **********************/
+function toggleSelect(index) {
+  if (selectedIndexes.includes(index)) {
+    selectedIndexes = selectedIndexes.filter(i => i !== index);
+  } else {
+    if (selectedIndexes.length >= 2) return;
+    selectedIndexes.push(index);
+  }
+  render();
+}
+
+/**********************
+ * UI 생성
+ **********************/
+function createCharacterElement(character) {
+  const t = character.traits;
+  const wrap = document.createElement("div");
+  wrap.className = "character";
+
+  const face = document.createElement("div");
+  face.className = "face";
+  face.style.background = `hsl(${t.color},70%,70%)`;
+  face.style.borderRadius = `${t.roundness}%`;
+
+  const le = document.createElement("div");
+  le.className = "eye left";
+  le.style.width = le.style.height = `${t.eyeSize}px`;
+
+  const re = document.createElement("div");
+  re.className = "eye right";
+  re.style.width = re.style.height = `${t.eyeSize}px`;
+
+  const mouth = document.createElement("div");
+  mouth.className = "mouth";
+  mouth.style.width = `${t.mouthWidth}px`;
+  mouth.style.transform =
+    `translateX(-50%) rotate(${t.mouthCurve}deg)`;
+
+  face.append(le, re, mouth);
+  wrap.appendChild(face);
+  return wrap;
+}
+
+/**********************
+ * 렌더링
+ **********************/
+function renderList() {
+  const ul = document.getElementById("characterList");
+  ul.innerHTML = "";
+
+  characters.forEach((c, i) => {
+    const li = document.createElement("li");
+    const el = createCharacterElement(c);
+
+    if (selectedIndexes.includes(i)) {
+      el.classList.add("selected");
+    }
+
+    li.onclick = () => toggleSelect(i);
+    li.appendChild(el);
+    ul.appendChild(li);
+  });
+}
+
+function renderParents() {
+  const [a, b] = selectedIndexes;
+
+  const pa = document.getElementById("parentA");
+  const pb = document.getElementById("parentB");
+
+  pa.innerHTML = "";
+  pb.innerHTML = "";
+
+  if (a !== undefined) pa.appendChild(createCharacterElement(characters[a]));
+  else pa.textContent = "없음";
+
+  if (b !== undefined) pb.appendChild(createCharacterElement(characters[b]));
+  else if (partner) pb.appendChild(createCharacterElement(partner));
+  else pb.textContent = "없음";
+}
+
+function render() {
+  renderList();
+  renderParents();
+}
+
+/**********************
+ * 게임 동작
+ **********************/
+document.getElementById("meetBtn").onclick = () => {
+  partner = generateRandomCharacter();
+  render();
+};
+
+document.getElementById("breedBtn").onclick = () => {
+  if (selectedIndexes.length === 0) {
+    alert("부모를 선택해!");
+    return;
+  }
+
+  const parentA = characters[selectedIndexes[0]];
+  const parentB =
+    selectedIndexes[1] !== undefined
+      ? characters[selectedIndexes[1]]
+      : partner;
+
+  if (!parentB) {
+    alert("두 번째 부모가 필요해!");
+    return;
+  }
+
+  const child = createChild(parentA, parentB);
+  characters.push(child);
+
+  // 🔥 자식 자동 선택
+  selectedIndexes = [characters.length - 1];
+  partner = null;
+
+  render();
+};
+
+/**********************
+ * 초기화
+ **********************/
+characters.push(generateRandomCharacter());
+selectedIndexes = [0]; // ⭐ 처음 캐릭터 자동 선택
+render();
+</script>
+
+</body>
+</html>
