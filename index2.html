@@ -311,13 +311,25 @@ function toggleSelect(index) {
 /**********************
  * 렌더링
  **********************/
-function renderList() {
+ function renderList() {
   const ul = document.getElementById("characterList");
   ul.innerHTML = "";
 
-  characters.forEach(char => {
+  characters.forEach((char, index) => {
+    const li = document.createElement("li");
+
     const el = renderCharacter(char);
-    ul.appendChild(el);
+
+    // ⭐ 선택된 캐릭터 표시
+    if (selectedIndexes.includes(index)) {
+      el.classList.add("selected");
+    }
+
+    // ⭐ 클릭 시 선택 토글
+    li.onclick = () => toggleSelect(index);
+
+    li.appendChild(el);
+    ul.appendChild(li);
   });
 }
 
