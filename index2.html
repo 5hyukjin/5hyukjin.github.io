@@ -17,7 +17,7 @@
       flex-wrap: wrap;
     }
 
-    li {
+    #characterList li {
       cursor: pointer;
     }
 
@@ -94,6 +94,43 @@
       gap: 40px;
       margin: 20px 0;
     }
+    
+    .dex {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 16px;
+      list-style: none;
+      padding: 0;
+    }
+    
+    .dex li {
+      text-align: center;
+      font-size: 12px;
+    }
+    
+    /* 미발견 카드 */
+    .dex .unknown {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      background: repeating-linear-gradient(
+        45deg,
+        #ddd,
+        #ddd 10px,
+        #ccc 10px,
+        #ccc 20px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-weight: bold;
+    }
+    
+    /* 희귀도 분위기 (나중 확장용) */
+    .dex .rare { outline: 2px solid #4aa3ff; }
+    .dex .epic { outline: 2px solid #b44cff; }
+    .dex .legendary { outline: 2px solid gold; }
   </style>
 </head>
 <body>
@@ -121,6 +158,9 @@
 
 <button id="meetBtn">새로운 캐릭터 만나기</button>
 <button id="breedBtn">교배하기</button>
+
+<h2>📘 캐릭터 도감</h2>
+<ul id="dexList" class="dex"></ul>
 
 <script>
 /**********************
@@ -364,6 +404,80 @@ function render() {
   renderParents();
   renderTarget();
   renderSimilarity();
+  renderDex();
+}
+
+/**********************
+ * 도감
+ **********************/
+ function getDexKey(character) {
+  const { bodyShape, eye, mouth } = character.traits;
+  return `${bodyShape}_${eye}_${mouth}`;
+}
+
+const DEX = [
+  {
+    id: "circle_basic",
+    bodyShape: "circle",
+    eye: "● ●",
+    mouth: "—",
+    rarity: "common",
+    discovered: false
+  },
+  {
+    id: "triangle_sad",
+    bodyShape: "triangle",
+    eye: "ㅠ ㅠ",
+    mouth: "(",
+    rarity: "rare",
+    discovered: false
+  },
+]
+
+function registerToDex(character) {
+  DEX.forEach(entry => {
+    if (
+      entry.bodyShape === character.traits.bodyShape &&
+      entry.eye === character.traits.eye &&
+      entry.mouth === character.traits.mouth
+    ) {
+      entry.discovered = true;
+    }
+  });
+}
+
+function renderDex() {
+  const ul = document.getElementById("dexList");
+  ul.innerHTML = "";
+
+  DEX.forEach(entry => {
+    const li = document.createElement("li");
+
+    if (entry.discovered) {
+      // 발견된 종 → 캐릭터 렌더
+      const dummy = {
+        traits: {
+          bodyShape: entry.bodyShape,
+          eye: entry.eye,
+          mouth: entry.mouth,
+          color: 200,
+          roundness: 50
+        }
+      };
+
+      const charEl = renderCharacter(dummy);
+      charEl.classList.add(entry.rarity);
+      li.appendChild(charEl);
+    } else {
+      // ❓ 미발견
+      const unknown = document.createElement("div");
+      unknown.className = "unknown";
+      unknown.textContent = "???";
+      li.appendChild(unknown);
+    }
+
+    ul.appendChild(li);
+  });
 }
 
 /**********************
@@ -393,12 +507,14 @@ document.getElementById("breedBtn").onclick = () => {
 
   const child = createChild(parentA, parentB);
   characters.push(child);
+  registerToDex(child);
 
   // 🔥 자식 자동 선택
   selectedIndexes = [characters.length - 1];
   partner = null;
 
   const similarity = calculateSimilarity(child, targetCharacter);
+  
   if (similarity >= 90) {
     alert(`🎉 목표 캐릭터 달성! (${similarity}%)`);
   }
@@ -451,10 +567,11 @@ function renderSimilarity() {
 /**********************
  * 초기화
  **********************/
-characters.push(generateRandomCharacter());
-selectedIndexes = [0]; // ⭐ 처음 캐릭터 자동 선택
-render();
-
+ const first = generateRandomCharacter();
+ characters.push(first);
+ registerToDex(first);
+ selectedIndexes = [0];
+ render();
 </script>
 
 </body>
